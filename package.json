@@ -11,8 +11,5 @@
   "devDependencies": {
     "typescript": "^4.6.4",
     "vite": "^3.1.0"
-  },
-  "dependencies": {
-    "konva": "^8.3.12"
   }
 }

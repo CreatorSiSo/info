@@ -19,28 +19,15 @@
 </style>
 
 <body>
-  <h1>90° Triangle Calculator</h1>
+  <h1>Kaffee</h1>
   <div id="triangle_preview"></div>
 
-  <form action="calc">
+  <form action="get_coffee">
+    <input id="coffee_button" type="button" value="Bestellen">
+    <input id="refill_button" type="button" value="Auffüllen">
 
-    <div>
-      <label for="width_input">Width</label>
-      <input type="number" name="width" id="width_input" required>
-    </div>
-
-    <div>
-      <label for="height_input">Height</label>
-      <input type="number" name="height" id="height_input" required>
-    </div>
-
-    <input id="calc_button" type="submit" value="Calculate">
-
-    <div>Diagonal: <span id="diagonal_result"></span></div>
-    <div>Area: <span id="area_result"></span></div>
-    <div>Circumference: <span id="circumference_result"></span></div>
-    <div>Alpha: <span id="alpha_result"></span></div>
-    <div>Beta: <span id="beta_result"></span></div>
+    <div>Beans: <span id="beans_status"></span></div>
+    <div>Water: <span id="water_status"></span></div>
   </form>
 </body>
 
