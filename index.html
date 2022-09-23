@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS</title>
 </head>
+
+<script type="module" src="/src/main.ts"></script>
 
 <style>
   form {
@@ -17,15 +19,19 @@
 </style>
 
 <body>
+  <h1>90° Triangle Calculator</h1>
+  <div id="triangle_preview"></div>
+
   <form action="calc">
-    <div>
-      <label for="length_input">Length</label>
-      <input type="number" name="length" id="length_input" required>
-    </div>
 
     <div>
       <label for="width_input">Width</label>
       <input type="number" name="width" id="width_input" required>
+    </div>
+
+    <div>
+      <label for="height_input">Height</label>
+      <input type="number" name="height" id="height_input" required>
     </div>
 
     <input id="calc_button" type="submit" value="Calculate">
@@ -33,25 +39,9 @@
     <div>Diagonal: <span id="diagonal_result"></span></div>
     <div>Area: <span id="area_result"></span></div>
     <div>Circumference: <span id="circumference_result"></span></div>
+    <div>Alpha: <span id="alpha_result"></span></div>
+    <div>Beta: <span id="beta_result"></span></div>
   </form>
 </body>
-
-<script>
-  const form = document.querySelector("form")
-  const lengthInput = document.querySelector("#length_input")
-  const widthInput = document.querySelector("#width_input")
-  const diagonalResult = document.querySelector("#diagonal_result")
-  const areaResult = document.querySelector("#area_result")
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault()
-    const length = lengthInput.value
-    const width = widthInput.value
-    console.log(length, width)
-
-    diagonalResult.textContent = Math.sqrt(length * length + width * width)
-    areaResult.textContent = (length * width) / 2
-  })
-</script>
 
 </html>
