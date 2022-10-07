@@ -18,24 +18,23 @@
 	</style>
 
 	<body>
-		<h1>Zylinder</h1>
+		<h1>Gehaltsrechner</h1>
 
-		<form action="get_coffee">
-			<label for="height">Height [m]</label>
-			<input id="height" type="number" value="1" />
+		<form action="calc_money">
+			<label for="brutto">Bruttogehalt [€]</label>
+			<input id="brutto" type="number" value="2500" />
 
-			<label for="d_cylinder">Durchmesser Zylinder [m]</label>
-			<input id="d_cylinder" type="number" value="0.4" />
-
-			<label for="d_tube">Durchmesser Schlauch [cm]</label>
-			<input id="d_tube" type="number" value="2" />
-
-			<label for="speed">Durchflussgeschwindigkeit [m/s]</label>
-			<input id="speed" type="number" value="1" />
+			<label for="rent">Miete [€]</label>
+			<input id="rent" type="number" value="500" />
 
 			<input id="calc_button" type="button" value="Berechnen" />
 
-			<div>Zeit: <span id="time_status"></span></div>
+			<div>Abzüglich Lohnsteuer: <span id="netto_1_status"></span></div>
+			<div>
+				Abzüglich Krankenversicherungsbeitrag: <span id="netto_2_status"></span>
+			</div>
+			<div>Nettogehalt: <span id="netto_status"></span></div>
+			<div>Zum Sparen möglich: <span id="rest_status"></span></div>
 		</form>
 	</body>
 </html>
