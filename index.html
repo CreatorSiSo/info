@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + TS</title>
+	</head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + TS</title>
-</head>
+	<script type="module" src="/src/main.ts"></script>
 
-<script type="module" src="/src/main.ts"></script>
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+	</style>
 
-<style>
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-</style>
+	<body>
+		<h1>Zylinder</h1>
 
-<body>
-  <h1>Kaffee</h1>
-  <div id="triangle_preview"></div>
+		<form action="get_coffee">
+			<label for="height">Height [m]</label>
+			<input id="height" type="number" value="1" />
 
-  <form action="get_coffee">
-    <input id="coffee_button" type="button" value="Bestellen">
-    <input id="refill_button" type="button" value="Auffüllen">
+			<label for="d_cylinder">Durchmesser Zylinder [m]</label>
+			<input id="d_cylinder" type="number" value="0.4" />
 
-    <div>Beans: <span id="beans_status"></span></div>
-    <div>Water: <span id="water_status"></span></div>
-  </form>
-</body>
+			<label for="d_tube">Durchmesser Schlauch [cm]</label>
+			<input id="d_tube" type="number" value="2" />
 
+			<label for="speed">Durchflussgeschwindigkeit [m/s]</label>
+			<input id="speed" type="number" value="1" />
+
+			<input id="calc_button" type="button" value="Berechnen" />
+
+			<div>Zeit: <span id="time_status"></span></div>
+		</form>
+	</body>
 </html>

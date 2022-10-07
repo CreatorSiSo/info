@@ -1,44 +1,35 @@
-let beans = 0;
-let water = 0;
+// Ein zylinderförmiger Behälter vom Durchmesser d1(m) und der Höhe h(m) wird durch einen Schlauch mit dem Durchmesser d2(cm) mit Wein gefüllt.
+// Die Durchflussgeschwindigkeit ist v (m/s).
+// Durch ein Programm soll die Zeit ermittelt werden, die zum vollständigen Füllen des Behälters benötigt wird.
 
-const getCoffee = () => {
-	const [beansFuture, waterFuture] = [beans - 2, water - 5];
-	if (!(beansFuture < 0 || waterFuture < 0)) {
-		beans = beansFuture;
-		water = waterFuture;
-	}
-};
+// VZ = PI * r * r * h
 
-const refill = () => {
-	beans += 20;
-	water += 45;
-};
+// VS = PI * r * r * l          | l = vS * t
+// VS = PI * r * r * vS * t
 
-const coffeeButton = document.querySelector(
-	"#coffee_button"
-) as HTMLButtonElement;
-const refillButton = document.querySelector(
-	"#refill_button"
-) as HTMLButtonElement;
-const beansStatus = document.querySelector("#beans_status") as HTMLElement;
-const waterStatus = document.querySelector("#water_status") as HTMLElement;
+// VZ = VS
+// PI * rZ * rZ * h = PI * rS * rS * vS * t  | /PI
+// rZ * rZ * h = rS * rS * vS * t            | /(rS * rS * vS)
+// t = (rZ * rZ * h) / (rS * rS * vS)
 
-const updateText = () => {
-	beansStatus.textContent = beans.toString();
-	waterStatus.textContent = water.toString();
-};
+const calcTime = (h: number, rZ: number, rS: number, vS: number) =>
+	(rZ * rZ * h) / (rS * rS * vS);
 
-coffeeButton.addEventListener("click", (e) => {
+const heightInput = document.querySelector("#height") as HTMLInputElement;
+const dCylindInput = document.querySelector("#d_cylinder") as HTMLInputElement;
+const dTubeInput = document.querySelector("#d_tube") as HTMLInputElement;
+const speedInput = document.querySelector("#speed") as HTMLInputElement;
+
+const calcButton = document.querySelector("#calc_button") as HTMLButtonElement;
+const timeStatus = document.querySelector("#time_status") as HTMLElement;
+
+calcButton.addEventListener("click", (e) => {
 	e.preventDefault;
-	getCoffee();
-	updateText();
+	const h = parseFloat(heightInput.value);
+	const rZ = parseFloat(dCylindInput.value) / 2;
+	const rS = parseFloat(dTubeInput.value) / 200;
+	const vS = parseFloat(speedInput.value);
+	timeStatus.textContent = calcTime(h, rZ, rS, vS).toString() + "s";
 });
-refillButton.addEventListener("click", (e) => {
-	e.preventDefault;
-	refill();
-	updateText();
-});
-
-updateText();
 
 export {};
