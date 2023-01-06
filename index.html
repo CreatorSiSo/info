@@ -18,20 +18,30 @@
 	</style>
 
 	<body>
-		<h1>Wieviel Flaschen Cola sind noch im Kühlschrank?</h1>
+		<h1>Calculator</h1>
 
 		<form action="calc">
 			<div>
-				<label for="amount_bottles_input">Anzahl Flaschen</label>
-				<input
-					type="number"
-					name="amount_bottles"
-					id="amount_bottles_input"
-					required
-				/>
+				<label for="number_1_input">Number 1</label>
+				<input type="number" name="number_1" id="number_1_input" required />
+			</div>
+			<div>
+				<label for="number_2_input">Number 2</label>
+				<input type="number" name="number_2" id="number_2_input" required />
+			</div>
+			<div>
+				<label for="op_select">Operation</label>
+				<select id="op_select">
+					<option value="diff">Difference</option>
+					<option value="mul">Multiplication</option>
+					<option value="div">Division</option>
+					<option value="sms">Sqrt of sum divided by product</option>
+					<option value="rem">Divisible</option>
+					<option value="sum">Sum of Range</option>
+				</select>
 			</div>
 
-			<input id="calc_button" type="submit" value="Kinderlied anzeigen" />
+			<input id="calc_button" type="submit" value="Calculate" />
 
 			<pre id="result"></pre>
 		</form>
