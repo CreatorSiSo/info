@@ -18,17 +18,29 @@
 	</style>
 
 	<body>
-		<h1>Range</h1>
+		<h1>Kalendar</h1>
 
 		<form action="calc">
+			<!-- <div>
+				<label for="year_input">Jahr: </label>
+				<input type="month" name="" id="year_input" />
+			</div> -->
 			<div>
-				<label for="max_input">Range to</label>
-				<input type="number" name="max" id="max_input" required />
-			</div>
-
-			<div>
-				<button id="button_1">Zahlenfolgen</button>
-				<button id="button_2">Zahlen vertikal</button>
+				<label for="month_input">Monat: </label>
+				<select name="month" id="month_input">
+					<option value="1">Januar</option>
+					<option value="2">Februar</option>
+					<option value="3">März</option>
+					<option value="4">April</option>
+					<option value="5">Mai</option>
+					<option value="6">Juni</option>
+					<option value="7">July</option>
+					<option value="8">August</option>
+					<option value="9">September</option>
+					<option value="10">Oktober</option>
+					<option value="11">November</option>
+					<option value="12">Dezember</option>
+				</select>
 			</div>
 
 			<pre id="result"></pre>

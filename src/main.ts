@@ -1,22 +1,47 @@
 const form = document.querySelector("form") as HTMLFormElement;
-const max_input = document.querySelector("#max_input") as HTMLInputElement;
+const month_input = document.querySelector("#month_input") as HTMLSelectElement;
 const result = document.querySelector("#result") as HTMLPreElement;
-const button_1 = document.querySelector("#button_1") as HTMLButtonElement;
-const button_2 = document.querySelector("#button_2") as HTMLButtonElement;
 
 form.addEventListener("submit", (e) => e.preventDefault());
 
-button_1.addEventListener("click", () => {
-	const max = parseInt(max_input.value);
-	result.textContent = range_inclusive(0, max).join(", ");
-});
+printCalendar();
+month_input.addEventListener("change", printCalendar);
 
-button_2.addEventListener("click", () => {
-	const max = parseInt(max_input.value);
-	result.textContent = range_inclusive(0, max).join(",\n");
-});
+function printCalendar() {
+	result.textContent = calendar_string(2022, parseInt(month_input.value));
+}
 
-const range_inclusive = (start: number, end: number) =>
-	Array.from({ length: end - start + 1 }, (_, i) => i + start);
+function calendar_string(year: number, month: number): string {
+	const month_length = days_in_month(year, month);
+	const first_day = new Date(year, month - 1, 1).getDay();
+	const data = [
+		"Montag",
+		"Dienstag",
+		"Mittwoch",
+		"Donnerstag",
+		"Freitag",
+		"Samstag",
+		"Sonntag",
+		...Array.from({ length: first_day }, () => "--"),
+		...range_inclusive(1, month_length).map((date) => date.toString()),
+	].map((field) => field.padEnd(10, " "));
+
+	const rows = Array.from(chunks(data, 7));
+	return rows.map((row) => row.join(" | ")).join("\n");
+}
+
+function days_in_month(year: number, month: number): number {
+	return new Date(year, month, 0).getDate();
+}
+
+function range_inclusive(start: number, end: number): number[] {
+	return Array.from({ length: end - start + 1 }, (_, i) => i + start);
+}
+
+function* chunks<T>(arr: T[], n: number): Generator<T[], void> {
+	for (let i = 0; i < arr.length; i += n) {
+		yield arr.slice(i, i + n);
+	}
+}
 
 export {};
