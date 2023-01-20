@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>LK 3 Info</title>
+	</head>
+
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+	</style>
+
+	<body>
+		<h1>Kalendar</h1>
+
+		<form action="calc">
+			<div>
+				<label for="year_input">Jahr: </label>
+				<input type="number" name="year" id="year_input" />
+			</div>
+			<div>
+				<label for="month_input">Monat: </label>
+				<select name="month" id="month_input">
+					<option value="0">Januar</option>
+					<option value="1">Februar</option>
+					<option value="2">März</option>
+					<option value="3">April</option>
+					<option value="4">Mai</option>
+					<option value="5">Juni</option>
+					<option value="6">July</option>
+					<option value="7">August</option>
+					<option value="8">September</option>
+					<option value="9">Oktober</option>
+					<option value="10">November</option>
+					<option value="11">Dezember</option>
+				</select>
+			</div>
+
+			<pre id="result"></pre>
+		</form>
+	</body>
+
+	<script>
+		const form = document.querySelector("form");
+		const year_input = document.querySelector("#year_input");
+		const month_input = document.querySelector("#month_input");
+		const result = document.querySelector("#result");
+
+		form.addEventListener("submit", (e) => e.preventDefault());
+
+		year_input.value = new Date(Date.now()).getFullYear().toString();
+		printCalendar();
+		year_input.addEventListener("input", printCalendar);
+		month_input.addEventListener("change", printCalendar);
+
+		function printCalendar() {
+			result.textContent = calendar_string(
+				parseInt(year_input.value),
+				parseInt(month_input.value)
+			);
+		}
+
+		function calendar_string(year, month) {
+			const month_length = days_in_month(year, month);
+			const first_day = new Date(year, month, 1).getUTCDay();
+			const data = [
+				"Montag",
+				"Dienstag",
+				"Mittwoch",
+				"Donnerstag",
+				"Freitag",
+				"Samstag",
+				"Sonntag",
+				...Array.from({ length: first_day }, () => "--"),
+				...range_inclusive(1, month_length).map((date) => date.toString()),
+			].map((field) => field.padEnd(10, " "));
+
+			const rows = Array.from(chunks(data, 7));
+			return rows.map((row) => row.join(" | ")).join("\n");
+		}
+
+		function days_in_month(year, month) {
+			return new Date(year, month, 0).getDate();
+		}
+
+		function range_inclusive(start, end) {
+			return Array.from({ length: end - start + 1 }, (_, i) => i + start);
+		}
+
+		function* chunks(array, chunk_size) {
+			for (let i = 0; i < array.length; i += chunk_size) {
+				yield array.slice(i, i + chunk_size);
+			}
+		}
+	</script>
+</html>
