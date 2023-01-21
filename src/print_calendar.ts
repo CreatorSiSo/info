@@ -74,6 +74,8 @@ function assert<T>(left: T, right: T) {
 		throw new Error(`Failed assertion, ${left} does not equal ${right}`);
 }
 
+// use `cal [month] [year]` to validate
+
 assert(is_leap_year(2000), true);
 assert(is_leap_year(2023), false);
 assert(month_length(2000, 2), 29);
