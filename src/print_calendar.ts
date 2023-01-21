@@ -34,6 +34,7 @@ function printCalendar(year: number, month: number): string {
 }
 
 // https://www.geeksforgeeks.org/tomohiko-sakamotos-algorithm-finding-day-week
+// http://blog.marcinchwedczuk.pl/get-day-of-week-from-date
 function day_of_week(year: number, month: number, day: number) {
 	// leading number of days
 	let offsets = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
