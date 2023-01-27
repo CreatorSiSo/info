@@ -69,19 +69,19 @@
 			const month_length = days_in_month(year, month);
 			const first_day = new Date(year, month, 1).getUTCDay();
 			const data = [
-				"Montag",
-				"Dienstag",
-				"Mittwoch",
-				"Donnerstag",
-				"Freitag",
-				"Samstag",
-				"Sonntag",
-				...Array.from({ length: first_day }, () => "--"),
+				"Mo",
+				"Di",
+				"Mi",
+				"Do",
+				"Fr",
+				"Sa",
+				"So",
+				...Array.from({ length: first_day }, () => ""),
 				...range_inclusive(1, month_length).map((date) => date.toString()),
-			].map((field) => field.padEnd(10, " "));
+			].map((field) => field.padEnd(2, " "));
 
 			const rows = Array.from(chunks(data, 7));
-			return rows.map((row) => row.join(" | ")).join("\n");
+			return rows.map((row) => row.join(" ")).join("\n");
 		}
 
 		function days_in_month(year, month) {
