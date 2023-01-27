@@ -1,30 +1,26 @@
 func print_calendar(year: uint, month: uint) -> string {
-	mut calendar = String.from("Mo Di Mi Do Fr Sa So\n")
 	const first_weekday = day_of_week(year, month, 1)
 
-	// leave the first fields empty so that the calendar starts at the correct day
-	for _ in 0..first_weekday {
-		calendar += "   "
-	}
+	mut calendar = String.from("Mo Di Mi Do Fr Sa So\n")
 
-	for current_day in 1..=month_length(year, month) {
+	// leave the first fields empty so that the calendar starts at the correct day
+	calendar.extend((0..first_weekday).map(-> "   "))
+
+	for day_number in 1..=month_length(year, month) {
 		// push number of the day onto calendar
-		calendar += current_day.to_string()
+		calendar += day_number.to_string()
 
 		// align the next field using spaces
-		calendar += " "
-		if current_day <= 9 {
-			calendar += " "
-		}
+		calendar += if day_number > 9 { " " } else { "  " }
 
 		// push newline after end of a week
-		const field_index = first_weekday + current_day
+		const field_index = first_weekday + day_number
 		if field_index % 7 == 0 {
 			calendar += "\n"
 		}
 	}
 
-	return calendar
+	calendar
 }
 
 // https://www.geeksforgeeks.org/tomohiko-sakamotos-algorithm-finding-day-week

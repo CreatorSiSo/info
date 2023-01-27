@@ -1,30 +1,25 @@
 fn print_calendar(year: u32, month: u8) -> String {
-	let mut calendar = String::from("Mo Di Mi Do Fr Sa So\n");
 	let first_weekday = day_of_week(year, month, 1);
 
-	// leave the first fields empty so that the calendar starts at the correct day
-	for _ in 0..first_weekday {
-		calendar += "   ";
-	}
+	let mut calendar = String::from("Mo Di Mi Do Fr Sa So\n");
 
-	for current_day in 1..=month_length(year, month) {
-		// push number of the day onto calendar
-		calendar += &current_day.to_string();
+	// leave the first fields empty so that the calendar starts at the correct day
+	calendar.extend((0..first_weekday).map(|_| "   "));
+
+	for day_number in 1..=month_length(year, month) {
+		calendar += &day_number.to_string();
 
 		// align the next field using spaces
-		calendar += " ";
-		if current_day <= 9 {
-			calendar += " ";
-		}
+		calendar += if day_number > 9 { " " } else { "  " };
 
 		// push newline after end of a week
-		let field_index = first_weekday + current_day;
+		let field_index = first_weekday + day_number;
 		if field_index % 7 == 0 {
-			calendar += "\n";
+			calendar += "\n"
 		}
 	}
 
-	return calendar;
+	calendar
 }
 
 // https://www.geeksforgeeks.org/tomohiko-sakamotos-algorithm-finding-day-week

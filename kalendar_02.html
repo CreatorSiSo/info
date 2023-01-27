@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>LK 3 Info</title>
+	</head>
+
+	<style>
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+	</style>
+
+	<body>
+		<h1>Kalendar</h1>
+
+		<form action="calc">
+			<div>
+				<label for="year_input">Jahr: </label>
+				<input type="number" name="year" id="year_input" />
+			</div>
+			<div>
+				<label for="month_input">Monat: </label>
+				<select name="month" id="month_input">
+					<option value="1">Januar</option>
+					<option value="2">Februar</option>
+					<option value="3">März</option>
+					<option value="4">April</option>
+					<option value="5">Mai</option>
+					<option value="6">Juni</option>
+					<option value="7">July</option>
+					<option value="8">August</option>
+					<option value="9">September</option>
+					<option value="10">Oktober</option>
+					<option value="11">November</option>
+					<option value="12">Dezember</option>
+				</select>
+			</div>
+
+			<pre id="result"></pre>
+		</form>
+	</body>
+
+	<script>
+		const form = document.querySelector("form");
+		const year_input = document.querySelector("#year_input");
+		const month_input = document.querySelector("#month_input");
+		const result = document.querySelector("#result");
+
+		form.addEventListener("submit", (e) => e.preventDefault());
+
+		year_input.value = new Date(Date.now()).getFullYear().toString();
+		update_calendar();
+		year_input.addEventListener("input", update_calendar);
+		month_input.addEventListener("change", update_calendar);
+
+		function update_calendar() {
+			result.textContent = print_calendar(
+				parseInt(year_input.value),
+				parseInt(month_input.value)
+			);
+		}
+
+		function print_calendar(year, month) {
+			let calendar = "Mo Di Mi Do Fr Sa So\n";
+			const first_weekday = day_of_week(year, month, 1);
+
+			// leave the first fields empty so that the calendar starts at the correct day
+			for (let field_index = 0; field_index < first_weekday; field_index += 1) {
+				calendar += "   ";
+			}
+
+			for (
+				let current_day = 1;
+				current_day <= month_length(year, month);
+				current_day += 1
+			) {
+				// push number of the day onto calendar
+				calendar += current_day;
+
+				// align the next field using spaces
+				calendar += " ";
+				if (current_day <= 9) {
+					calendar += " ";
+				}
+
+				// push newline after end of a week
+				const field_index = first_weekday + current_day;
+				if (field_index % 7 === 0) {
+					calendar += "\n";
+				}
+			}
+
+			return calendar;
+		}
+
+		// https://www.geeksforgeeks.org/tomohiko-sakamotos-algorithm-finding-day-week
+		// http://blog.marcinchwedczuk.pl/get-day-of-week-from-date
+		function day_of_week(year, month, day) {
+			// leading number of days
+			let offsets = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4];
+
+			if (month < 3) year -= 1;
+
+			return (
+				(year +
+					day +
+					offsets[month - 1] +
+					Math.floor(year / 4) -
+					Math.floor(year / 100) +
+					Math.floor(year / 400) -
+					1) %
+				7
+			);
+		}
+
+		function month_length(year, month) {
+			// february
+			if (month === 2)
+				if (is_leap_year(year)) return 29;
+				else return 28;
+			// odd month
+			if (month % 1 === 0) return 31;
+			// even month
+			return 30;
+		}
+
+		function is_leap_year(year) {
+			if (year % 4 === 0) return true;
+			if (year % 100 === 0 && year % 400 === 0) return false;
+			return false;
+		}
+	</script>
+</html>
